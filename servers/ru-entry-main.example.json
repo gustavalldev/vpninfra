@@ -1,0 +1,11 @@
+{
+  "id": "ru-entry-main",
+  "name": "RU Entry Main",
+  "role": "entry",
+  "host": "vpn.ordbox.ru",
+  "ip": "45.87.247.206",
+  "country_code": "RU",
+  "provider": "kvmka",
+  "status": "online",
+  "enabled": true
+}

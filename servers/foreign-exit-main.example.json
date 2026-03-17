@@ -1,0 +1,11 @@
+{
+  "id": "foreign-exit-main",
+  "name": "Foreign Exit Main",
+  "role": "exit",
+  "host": "vpnnew1.com",
+  "ip": "176.98.191.110",
+  "country_code": "SG",
+  "provider": "commercial",
+  "status": "online",
+  "enabled": true
+}
