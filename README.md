@@ -15,6 +15,12 @@
 - пароли
 - боевые `.env`
 
+## Что есть для direct VLESS
+
+- `deploy/foreign-vless-node/docker-compose.yml` - Xray + remote provisioner
+- `provisioner/` - HTTP backend для live `provision/revoke` клиентов в Xray
+- `env/foreign-vless-node.env.example` - пример env для foreign-ноды
+
 ## Текущая архитектура
 
 Сейчас целевая схема простая:

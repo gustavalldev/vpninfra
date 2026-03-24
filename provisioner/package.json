@@ -1,0 +1,14 @@
+{
+  "name": "xray-provisioner",
+  "version": "1.0.0",
+  "description": "Remote HTTP provisioner for Xray VLESS nodes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dockerode": "^4.0.9",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2"
+  }
+}

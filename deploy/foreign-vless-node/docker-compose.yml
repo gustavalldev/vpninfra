@@ -1,0 +1,31 @@
+services:
+  xray:
+    image: ghcr.io/xtls/xray-core:latest
+    container_name: ${XRAY_CONTAINER_NAME:-foreign-vless-xray}
+    user: "0:0"
+    command: ["run", "-config", "/etc/xray/config.json"]
+    restart: unless-stopped
+    ports:
+      - "443:443/tcp"
+    volumes:
+      - ${XRAY_CONFIG_FILE:-./config/config.json}:/etc/xray/config.json:ro
+      - ${XRAY_CERTS_DIR:-./certs}:/etc/xray/certs:ro
+
+  provisioner:
+    build:
+      context: ../../provisioner
+    container_name: ${PROVISIONER_CONTAINER_NAME:-foreign-vless-provisioner}
+    restart: unless-stopped
+    ports:
+      - "${PROVISIONER_PORT:-3021}:3021"
+    environment:
+      - PROVISIONER_PORT=3021
+      - PROVISIONER_TOKEN=${PROVISIONER_TOKEN:-}
+      - VPN_BACKEND_PROTOCOL=${VPN_BACKEND_PROTOCOL:-VLESS}
+      - VPN_BACKEND_PROFILE_FORMAT=${VPN_BACKEND_PROFILE_FORMAT:-uri}
+      - VPN_BACKEND_NODES_JSON=${VPN_BACKEND_NODES_JSON:-[]}
+      - XRAY_CONFIG_PATH=/data/xray-config.json
+      - XRAY_CONTAINER_NAME=${XRAY_CONTAINER_NAME:-foreign-vless-xray}
+    volumes:
+      - ${XRAY_CONFIG_FILE:-./config/config.json}:/data/xray-config.json
+      - /var/run/docker.sock:/var/run/docker.sock
