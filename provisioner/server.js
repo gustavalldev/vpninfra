@@ -159,10 +159,7 @@ async function loadConfig() {
 }
 
 async function saveConfig(config) {
-  const dir = path.dirname(XRAY_CONFIG_PATH);
-  const tempPath = path.join(dir, `.config.${process.pid}.${Date.now()}.tmp`);
-  await fs.writeFile(tempPath, `${JSON.stringify(config, null, 2)}\n`, 'utf8');
-  await fs.rename(tempPath, XRAY_CONFIG_PATH);
+  await fs.writeFile(XRAY_CONFIG_PATH, `${JSON.stringify(config, null, 2)}\n`, 'utf8');
 }
 
 function getVlessInbound(config) {
