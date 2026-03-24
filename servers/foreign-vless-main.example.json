@@ -1,11 +1,13 @@
 {
-  "id": "foreign-exit-main",
-  "name": "Foreign Exit Main",
-  "role": "exit",
+  "id": "foreign-vless-main",
+  "name": "Foreign VLESS Main",
+  "role": "vpn-node",
   "host": "vpnnew1.com",
   "ip": "176.98.191.110",
   "country_code": "SG",
   "provider": "commercial",
+  "protocol": "VLESS",
+  "port": 443,
   "status": "online",
   "enabled": true
 }
