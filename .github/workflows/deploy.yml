@@ -1,0 +1,35 @@
+name: Deploy Foreign Node
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.FOREIGN_VPS_HOST }}
+          username: ${{ secrets.FOREIGN_VPS_USER }}
+          key: ${{ secrets.FOREIGN_VPS_SSH_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            cd ${{ secrets.FOREIGN_VPS_PATH }}
+            git fetch origin main
+            git checkout main
+            git pull --ff-only origin main
+            docker compose -f deploy/foreign-vless-node/docker-compose.yml --env-file deploy/foreign-vless-node/.env up -d --build
+
+      - name: Notify Telegram
+        if: success()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.DEPLOY_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.DEPLOY_CHAT_ID }} \
+            -d text="✅ Foreign deploy завершён: ${{ github.repository }} (${{
+              github.ref_name
+            }})"

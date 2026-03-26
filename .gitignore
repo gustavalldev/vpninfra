@@ -3,3 +3,6 @@
 *.pem
 *.pub
 secrets/
+runtime/
+deploy/foreign-vless-node/.env
+deploy/foreign-vless-node/.token
