@@ -20,6 +20,8 @@
 - `deploy/foreign-vless-node/docker-compose.yml` - Xray + remote provisioner
 - `provisioner/` - HTTP backend для live `provision/revoke` клиентов в Xray
 - `env/foreign-vless-node.env.example` - пример env для foreign-ноды
+- `env/foreign-vless-node.generic.env.example` - generic env-шаблон для новой ноды
+- `docs/ADD_VLESS_NODE.md` - runbook для добавления новой VLESS-ноды
 
 ## Текущая архитектура
 
