@@ -15,12 +15,24 @@
 - Docker + `docker compose` plugin
 - git доступ к репозиторию `vpn-infra`
 
+Если на сервере есть Docker, но нет `docker compose`, можно поставить plugin в user-space:
+
+```bash
+./scripts/install-user-docker-compose.sh
+```
+
 ## Шаг 1. Подготовить env ноды
 
 На локальной машине:
 
 ```bash
 cp env/foreign-vless-node.generic.env.example env/server-2-sg.env
+```
+
+Для сервера `109.107.170.233` можно взять готовый шаблон:
+
+```bash
+cp env/foreign-vless-ru-02.env.example env/foreign-vless-ru-02.env
 ```
 
 Заполни минимум:
