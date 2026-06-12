@@ -17,7 +17,7 @@ services:
     container_name: ${PROVISIONER_CONTAINER_NAME:-foreign-vless-provisioner}
     restart: unless-stopped
     ports:
-      - "${PROVISIONER_PORT:-3021}:3021"
+      - "${PROVISIONER_BIND_HOST:-127.0.0.1}:${PROVISIONER_PORT:-3021}:3021"
     environment:
       - PROVISIONER_PORT=3021
       - PROVISIONER_TOKEN=${PROVISIONER_TOKEN:-}
