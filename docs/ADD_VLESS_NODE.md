@@ -64,7 +64,20 @@ mkdir -p deploy/foreign-vless-node/config deploy/foreign-vless-node/certs
 cp env/server-2-sg.env deploy/foreign-vless-node/.env
 ```
 
-Дальше положи:
+Альтернатива без ручного редактирования `.env` и `config.json`:
+
+```bash
+SERVER_NAME=foreign-vless-ru-03 \
+SERVER_DISPLAY_NAME="VLESS Node 3" \
+SERVER_HOST=vpn.example.com \
+SERVER_IP=203.0.113.10 \
+COUNTRY_CODE=RU \
+PROVISIONER_TOKEN=replace-with-shared-control-token \
+CERT_SOURCE_DIR=/etc/letsencrypt/live/vpn.example.com \
+./scripts/prepare-vless-node-runtime.sh
+```
+
+Дальше проверь, что есть:
 
 - Xray config в `deploy/foreign-vless-node/config/config.json`
 - TLS cert/key в `deploy/foreign-vless-node/certs/`
