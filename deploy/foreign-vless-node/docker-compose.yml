@@ -26,6 +26,8 @@ services:
       - VPN_BACKEND_NODES_JSON=${VPN_BACKEND_NODES_JSON:-[]}
       - XRAY_CONFIG_PATH=/data/xray-config.json
       - XRAY_CONTAINER_NAME=${XRAY_CONTAINER_NAME:-foreign-vless-xray}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
     volumes:
       - ${XRAY_CONFIG_FILE:-./config/config.json}:/data/xray-config.json
       - /var/run/docker.sock:/var/run/docker.sock
