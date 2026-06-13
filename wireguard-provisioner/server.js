@@ -188,7 +188,11 @@ async function defaultRouteInterface() {
 
 async function ensureFirewall() {
   const egress = await defaultRouteInterface();
-  await sh('sysctl -w net.ipv4.ip_forward=1 >/dev/null');
+  try {
+    await sh('sysctl -w net.ipv4.ip_forward=1 >/dev/null');
+  } catch (error) {
+    console.warn(`Не удалось включить ip_forward из контейнера: ${error.stderr || error.message}`);
+  }
   await sh(`iptables -C FORWARD -i ${WG_INTERFACE} -j ACCEPT 2>/dev/null || iptables -A FORWARD -i ${WG_INTERFACE} -j ACCEPT`);
   await sh(`iptables -C FORWARD -o ${WG_INTERFACE} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT 2>/dev/null || iptables -A FORWARD -o ${WG_INTERFACE} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT`);
   await sh(`iptables -t nat -C POSTROUTING -s ${WG_SUBNET} -o ${egress} -j MASQUERADE 2>/dev/null || iptables -t nat -A POSTROUTING -s ${WG_SUBNET} -o ${egress} -j MASQUERADE`);
