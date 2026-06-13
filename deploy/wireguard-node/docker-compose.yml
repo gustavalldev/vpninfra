@@ -1,0 +1,29 @@
+services:
+  wireguard-provisioner:
+    build:
+      context: ../../wireguard-provisioner
+    container_name: ${WG_PROVISIONER_CONTAINER_NAME:-wireguard-provisioner}
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PROVISIONER_HOST=${PROVISIONER_HOST:-127.0.0.1}
+      - PROVISIONER_PORT=${PROVISIONER_PORT:-3021}
+      - PROVISIONER_TOKEN=${PROVISIONER_TOKEN:-}
+      - WG_INTERFACE=${WG_INTERFACE:-wg0}
+      - WG_CONFIG_DIR=/etc/wireguard
+      - WG_ADDRESS=${WG_ADDRESS:-10.66.0.1/24}
+      - WG_SUBNET=${WG_SUBNET:-10.66.0.0/24}
+      - WG_CLIENT_DNS=${WG_CLIENT_DNS:-1.1.1.1}
+      - WG_CLIENT_ALLOWED_IPS=${WG_CLIENT_ALLOWED_IPS:-0.0.0.0/0}
+      - WG_ENDPOINT=${WG_ENDPOINT}
+      - WG_PORT=${WG_PORT:-51820}
+      - WG_MTU=${WG_MTU:-1420}
+      - WG_PERSISTENT_KEEPALIVE=${WG_PERSISTENT_KEEPALIVE:-25}
+      - WG_EGRESS_INTERFACE=${WG_EGRESS_INTERFACE:-}
+      - WG_NODE_ID=${WG_NODE_ID:-wgserv-wireguard-02}
+      - WG_NODE_NAME=${WG_NODE_NAME:-WGServ WireGuard 02}
+      - WG_COUNTRY_CODE=${WG_COUNTRY_CODE:-DE}
+    volumes:
+      - ${WG_CONFIG_DIR:-/etc/wireguard}:/etc/wireguard
